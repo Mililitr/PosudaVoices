@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg1jgyo0pqwk"]
+
+[ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_erw4p"]
+sky_material = SubResource("ProceduralSkyMaterial_h4wva")
+
+[sub_resource type="Environment" id="Environment_y4a85"]
+background_mode = 2
+sky = SubResource("Sky_erw4p")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="testmap" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y4a85")
+
+[node name="player_anim_test" parent="." instance=ExtResource("1_pmvfo")]
+
+[node name="csg" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(50, 10, 50)
+
+[node name="csg" type="CSGBox3D" parent="csg"]
+operation = 2
+size = Vector3(49, 9, 49)
+
+[node name="csg2" type="CSGBox3D" parent="csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, 0)
+size = Vector3(0.5, 3, 8)
+
+[node name="csg3" type="CSGBox3D" parent="csg/csg2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+operation = 2
+size = Vector3(0.4, 2.9, 7.9)
+
+[node name="csg4" type="CSGBox3D" parent="csg/csg2"]
+size = Vector3(0.4, 0.1, 7.9)
+
+[node name="cup" type="RigidBody3D" parent="csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2)
+
+[node name="c" type="CollisionShape3D" parent="csg/cup"]
+shape = SubResource("BoxShape3D_la7th")
+
+[node name="csg" type="CSGCylinder3D" parent="csg/cup"]
+radius = 0.1
+height = 0.2
+
+[node name="cup2" type="CSGCylinder3D" parent="csg/cup/csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+operation = 2
+radius = 0.09
+height = 0.2
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="csg/cup/csg"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0.1)
+inner_radius = 0.05
+outer_radius = 0.08
+
+[node name="omni" type="OmniLight3D" parent="csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, -4)
+shadow_enabled = true
+omni_range = 20.0
+omni_attenuation = 0.5
