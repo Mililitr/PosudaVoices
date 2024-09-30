@@ -20,9 +20,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 #nodes
 @onready var kinematic = $kinematic
 @onready var camera = $kinematic/camera
+@onready var ray = $kinematic/camera/ray
+@onready var pin = $kinematic/camera/pin
 @onready var neck = $neck
-@onready var legs = $neck/legs
-@onready var anim = $anim
+@onready var tween = $tween
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -33,10 +34,9 @@ func _process(delta: float) -> void:
 		if direction:
 			velocity.x = move_toward(velocity.x, speed*direction.x, abs(direction.x)*speed/10)
 			velocity.z = move_toward(velocity.z, speed*direction.z, abs(direction.z)*speed/10)
-			if anim.current_animation != "move":
-				anim.play("move")
-		elif anim.current_animation != "idle":
-				anim.play("idle")
+			tween.move(true)
+		else:
+			tween.move(false)
 		velocity.x = move_toward(velocity.x, 0, abs(velocity.x)/10)
 		velocity.z = move_toward(velocity.z, 0, abs(velocity.z)/10)
 	elif direction:
@@ -54,6 +54,15 @@ func _process(delta: float) -> void:
 	
 	#neck_rotation
 	neck.rotation.y = lerp_angle(neck.rotation.y, kinematic.rotation.y, float(speed)/40)
+	
+	#crouch
+	if Input.is_action_pressed("ctrl"):
+		kinematic.position.y = lerp(kinematic.position.y, 0.2, 0.2)
+	else:
+		kinematic.position.y = lerp(kinematic.position.y, 0.8, 0.2)
+	
+	#fps
+	$canvas/fps.set_text("FPS %d" % Engine.get_frames_per_second())
 
 func _input(event):
 	#mouse
@@ -62,7 +71,12 @@ func _input(event):
 		camera.rotate_x(-event.relative.y * .001 * sensitive)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 	
-	#tween_test
 	if event is InputEventMouseButton:
-		if Input.is_action_just_pressed("lmb"):
-			anim.play("lmb")
+		#grab
+		if Input.is_action_just_pressed("lmb") and ray.collide_with_bodies:
+			if ray.get_collider() is RigidBody3D:
+				pin.node_b = ray.get_collider().get_path()
+				pin.global_position.z = ray.get_collision_point().z
+		elif Input.is_action_just_released("lmb"):
+			if pin.node_b:
+				pin.node_b = ""

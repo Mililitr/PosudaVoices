@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpk40rsdmkfrd"]
+[gd_scene load_steps=8 format=3 uid="uid://cpk40rsdmkfrd"]
 
 [ext_resource type="Script" path="res://player/player_anim_test.gd" id="1_epxok"]
+[ext_resource type="Script" path="res://player/tween.gd" id="2_k0500"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mfjlv"]
 size = Vector3(0.6, 2, 0.6)
@@ -11,171 +12,11 @@ size = Vector3(0.6, 0.4, 0.2)
 [sub_resource type="BoxMesh" id="BoxMesh_jg208"]
 size = Vector3(0.6, 0.8, 0.3)
 
-[sub_resource type="BoxMesh" id="BoxMesh_0yd4y"]
-size = Vector3(0.2, 0.4, 0.2)
-
 [sub_resource type="BoxMesh" id="BoxMesh_lstd5"]
 size = Vector3(0.3, 0.6, 0.4)
 
-[sub_resource type="Animation" id="Animation_bvdes"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("neck/legs/ll:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.785398, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("neck/legs/lr:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.785398, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("kinematic:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.8, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("neck/hands/hl:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.4, 0.4, -0.5)]
-}
-
-[sub_resource type="Animation" id="Animation_0c1qu"]
-resource_name = "idle"
-capture_included = true
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("neck/legs/lr:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("neck/legs/ll:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("kinematic:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 2,
-"values": [Vector3(0, 0.8, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_t3tt3"]
-resource_name = "lmb"
-capture_included = true
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("neck/hands/hl:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 2,
-"values": [Vector3(-0.4, 0.4, -1), Vector3(-0.4, 0.4, -0.5)]
-}
-
-[sub_resource type="Animation" id="Animation_shjxn"]
-resource_name = "move"
-loop_mode = 1
-capture_included = true
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("neck/legs/ll:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 2,
-"values": [Vector3(0.785398, 0, 0), Vector3(-0.785398, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("neck/legs/lr:rotation")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 2,
-"values": [Vector3(-0.785398, 0, 0), Vector3(0.785398, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("kinematic:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.5, 0.7, 1),
-"transitions": PackedFloat32Array(1, 0.5, 1, 0.5),
-"update": 2,
-"values": [Vector3(0, 0.7, 0), Vector3(0, 0.8, 0), Vector3(0, 0.7, 0), Vector3(0, 0.8, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_cvpal"]
-resource_name = "rmb"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_b0b6b"]
-_data = {
-"RESET": SubResource("Animation_bvdes"),
-"idle": SubResource("Animation_0c1qu"),
-"lmb": SubResource("Animation_t3tt3"),
-"move": SubResource("Animation_shjxn"),
-"rmb": SubResource("Animation_cvpal")
-}
+[sub_resource type="LabelSettings" id="LabelSettings_6mjjx"]
+font_size = 20
 
 [node name="player_anim_test" type="CharacterBody3D"]
 script = ExtResource("1_epxok")
@@ -194,6 +35,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
 mesh = SubResource("BoxMesh_1kcdo")
 skeleton = NodePath("../../..")
 
+[node name="ray" type="RayCast3D" parent="kinematic/camera"]
+target_position = Vector3(0, 0, -1.4)
+
+[node name="pin" type="PinJoint3D" parent="kinematic/camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4)
+node_a = NodePath("static")
+
+[node name="static" type="StaticBody3D" parent="kinematic/camera/pin"]
+
 [node name="neck" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 
@@ -205,21 +55,17 @@ skeleton = NodePath("../..")
 [node name="hands" type="Node3D" parent="neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
-[node name="hl" type="MeshInstance3D" parent="neck/hands"]
+[node name="hl" type="Node3D" parent="neck/hands"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.4, 0.4, -0.5)
-mesh = SubResource("BoxMesh_0yd4y")
-skeleton = NodePath("../../body")
 
-[node name="hr" type="MeshInstance3D" parent="neck/hands"]
+[node name="hr" type="Node3D" parent="neck/hands"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.4, 0.4, -0.5)
-mesh = SubResource("BoxMesh_0yd4y")
-skeleton = NodePath("../../body")
 
 [node name="legs" type="Node3D" parent="neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
 
 [node name="ll" type="Node3D" parent="neck/legs"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, -0.2, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.3, 0)
 
 [node name="m" type="MeshInstance3D" parent="neck/legs/ll"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
@@ -227,14 +73,45 @@ mesh = SubResource("BoxMesh_lstd5")
 skeleton = NodePath("../../../body")
 
 [node name="lr" type="Node3D" parent="neck/legs"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.2, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.3, 0)
 
 [node name="m" type="MeshInstance3D" parent="neck/legs/lr"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
 mesh = SubResource("BoxMesh_lstd5")
 skeleton = NodePath("../../../body")
 
-[node name="anim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_b0b6b")
-}
+[node name="tween" type="Node3D" parent="." node_paths=PackedStringArray("kinematic", "body", "ll", "lr")]
+script = ExtResource("2_k0500")
+kinematic = NodePath("../kinematic/camera")
+body = NodePath("../neck/body")
+ll = NodePath("../neck/legs/ll")
+lr = NodePath("../neck/legs/lr")
+duration = 0.4
+
+[node name="canvas" type="CanvasLayer" parent="."]
+
+[node name="aim" type="Label" parent="canvas"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_6mjjx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fps" type="Label" parent="canvas"]
+texture_filter = 1
+offset_right = 40.0
+offset_bottom = 28.0
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
