@@ -108,6 +108,22 @@ tracks/2/keys = {
 "values": [Vector3(0, 0.8, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_t3tt3"]
+resource_name = "lmb"
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("neck/hands/hl:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 2,
+"values": [Vector3(-0.4, 0.4, -1), Vector3(-0.4, 0.4, -0.5)]
+}
+
 [sub_resource type="Animation" id="Animation_shjxn"]
 resource_name = "move"
 loop_mode = 1
@@ -147,22 +163,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 0.5, 1, 0.5),
 "update": 2,
 "values": [Vector3(0, 0.7, 0), Vector3(0, 0.8, 0), Vector3(0, 0.7, 0), Vector3(0, 0.8, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_t3tt3"]
-resource_name = "lmb"
-capture_included = true
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("neck/hands/hl:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 2,
-"values": [Vector3(-0.4, 0.4, -1), Vector3(-0.4, 0.4, -0.5)]
 }
 
 [sub_resource type="Animation" id="Animation_cvpal"]
