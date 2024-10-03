@@ -46,8 +46,8 @@ func ready_tween_move():
 
 func kinematic_tween_move():
 	var _t = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
-	_t.tween_property(kinematic, "position:y", -0.1, duration/2).as_relative()
-	_t.tween_property(kinematic, "position:y", 0.1, duration/2).as_relative()
+	_t.tween_property(kinematic, "position:y", -0.1, duration/2)
+	_t.tween_property(kinematic, "position:y", 0, duration/2)
 
 func ready_tween_stand():
 	tween_stand = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)

@@ -21,7 +21,7 @@ movie_writer/movie_file="C:/Users/computerstand/Documents/godot/csclone/asd.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/graphedit2/plugin.cfg", "res://addons/intervals/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

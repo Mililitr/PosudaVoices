@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=14 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
 
@@ -18,11 +18,28 @@ glow_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtxpl"]
 size = Vector3(0.7, 0.1, 8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_owgim"]
+size = Vector3(0.2, 3.13, 8)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hav3h"]
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ioryn"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_63ahg"]
+plane = Plane(0, 0, -1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_v2sxp"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hh16c"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_78bml"]
 
 [node name="testmap" type="Node3D"]
 
@@ -54,8 +71,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 1.19209e-07)
 shape = SubResource("BoxShape3D_vtxpl")
 
 [node name="c2" type="CollisionShape3D" parent="csg2/static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 1.19209e-07)
-shape = SubResource("BoxShape3D_vtxpl")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+shape = SubResource("BoxShape3D_owgim")
 
 [node name="csg3" type="CSGBox3D" parent="csg2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
@@ -67,9 +84,12 @@ size = Vector3(0.4, 0.1, 8)
 material = SubResource("StandardMaterial3D_hav3h")
 
 [node name="player_anim_test" parent="." instance=ExtResource("1_pmvfo")]
+collision_layer = 4
 
 [node name="cup" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2)
+collision_layer = 2
+collision_mask = 3
 
 [node name="c" type="CollisionShape3D" parent="cup"]
 shape = SubResource("BoxShape3D_la7th")
@@ -88,3 +108,25 @@ height = 0.2
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0.1)
 inner_radius = 0.05
 outer_radius = 0.08
+
+[node name="static" type="StaticBody3D" parent="."]
+
+[node name="c" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.5)
+shape = SubResource("WorldBoundaryShape3D_ioryn")
+
+[node name="c2" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24.5)
+shape = SubResource("WorldBoundaryShape3D_63ahg")
+
+[node name="c3" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.5, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_v2sxp")
+
+[node name="c4" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_hh16c")
+
+[node name="c5" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
+shape = SubResource("WorldBoundaryShape3D_78bml")

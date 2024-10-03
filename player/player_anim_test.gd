@@ -25,6 +25,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var neck = $neck
 @onready var tween = $tween
 
+@onready var aim = $canvas/aim
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -71,12 +73,19 @@ func _input(event):
 		camera.rotate_x(-event.relative.y * .001 * sensitive)
 		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 	
+	#aim_color
+	if ray.is_colliding():
+		if ray.get_collider() is RigidBody3D:
+			aim.label_settings.font_color = Color(0, 1, 0, 0.5)
+	else:
+		aim.label_settings.font_color = Color(1, 1, 1, 0.5)
+	
 	if event is InputEventMouseButton:
 		#grab
-		if Input.is_action_just_pressed("lmb") and ray.collide_with_bodies:
+		if Input.is_action_just_pressed("lmb") and ray.is_colliding():
 			if ray.get_collider() is RigidBody3D:
+				pin.global_position = ray.get_collider().global_position
 				pin.node_b = ray.get_collider().get_path()
-				pin.global_position.z = ray.get_collision_point().z
 		elif Input.is_action_just_released("lmb"):
 			if pin.node_b:
 				pin.node_b = ""
