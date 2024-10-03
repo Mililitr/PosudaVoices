@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=18 format=3 uid="uid://cg1jgyo0pqwk"]
 
+[ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
@@ -24,8 +25,17 @@ size = Vector3(0.2, 3.13, 8)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hav3h"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w8jic"]
 size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
+size = Vector3(0.7, 0.9, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a135q"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_dfg5l"]
+material = SubResource("StandardMaterial3D_a135q")
+size = Vector2(0.7, 0.9)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ioryn"]
 plane = Plane(0, 0, 1, 0)
@@ -39,15 +49,16 @@ plane = Plane(1, 0, 0, 0)
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_hh16c"]
 plane = Plane(-1, 0, 0, 0)
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_78bml"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_tcgb8"]
+size = Vector3(50, 0.6, 50)
 
 [node name="testmap" type="Node3D"]
+script = ExtResource("1_e0alo")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y4a85")
 
 [node name="csg" type="CSGBox3D" parent="."]
-use_collision = true
 size = Vector3(50, 10, 50)
 
 [node name="csg" type="CSGBox3D" parent="csg"]
@@ -80,7 +91,7 @@ operation = 2
 size = Vector3(0.4, 2.9, 7.9)
 
 [node name="csg4" type="CSGBox3D" parent="csg2"]
-size = Vector3(0.4, 0.1, 8)
+size = Vector3(0.4, 0.1, 7.9)
 material = SubResource("StandardMaterial3D_hav3h")
 
 [node name="player_anim_test" parent="." instance=ExtResource("1_pmvfo")]
@@ -92,7 +103,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="c" type="CollisionShape3D" parent="cup"]
-shape = SubResource("BoxShape3D_la7th")
+shape = SubResource("BoxShape3D_w8jic")
 
 [node name="csg" type="CSGCylinder3D" parent="cup"]
 radius = 0.1
@@ -108,6 +119,36 @@ height = 0.2
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0.1)
 inner_radius = 0.05
 outer_radius = 0.08
+
+[node name="list" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, -2, 1.6)
+collision_layer = 2
+collision_mask = 3
+
+[node name="c" type="CollisionShape3D" parent="list"]
+shape = SubResource("BoxShape3D_la7th")
+
+[node name="csg" type="CSGMesh3D" parent="list"]
+mesh = SubResource("QuadMesh_dfg5l")
+
+[node name="csg2" type="CSGMesh3D" parent="list"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+mesh = SubResource("QuadMesh_dfg5l")
+
+[node name="label" type="Label3D" parent="list"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.00999999)
+shaded = true
+texture_filter = 0
+text = "list:
+1 bebra
+2 sigma
+3 1488
+4 medny byk
+5 ahaahahah
+6 six"
+font_size = 15
+outline_size = 10
+horizontal_alignment = 0
 
 [node name="static" type="StaticBody3D" parent="."]
 
@@ -128,5 +169,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.5, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_hh16c")
 
 [node name="c5" type="CollisionShape3D" parent="static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.5, 0)
-shape = SubResource("WorldBoundaryShape3D_78bml")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.6, 0)
+
+[node name="c6" type="CollisionShape3D" parent="static"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.8, 0)
+shape = SubResource("BoxShape3D_tcgb8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, -5)
+visible = false
+size = Vector3(5, 5, 1)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGBox3D"]
+operation = 2
+radius = 0.72187
