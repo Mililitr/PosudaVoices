@@ -62,9 +62,9 @@ func _process(delta: float) -> void:
 	
 	#crouch
 	if Input.is_action_pressed("ctrl"):
-		kinematic.position.y = lerp(kinematic.position.y, 0.2, 0.2)
+		kinematic.position.y = lerp(kinematic.position.y, 0.2, 0.1)
 	else:
-		kinematic.position.y = lerp(kinematic.position.y, 0.8, 0.2)
+		kinematic.position.y = lerp(kinematic.position.y, 0.8, 0.1)
 	
 	#grab
 	if grab:
