@@ -69,11 +69,10 @@ func _process(delta: float) -> void:
 	#grab
 	if grab:
 		if ray_wall.is_colliding():
-			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*15
+			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*20
 		else:
-			item.linear_velocity = (pin.global_position - item.global_position)*15
+			item.linear_velocity = (pin.global_position - item.global_position)*20
 			item.look_at(kinematic.global_position)
-		
 	
 	#fps
 	$canvas/fps.set_text("FPS %d" % Engine.get_frames_per_second())

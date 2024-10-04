@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=19 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
@@ -25,6 +25,9 @@ size = Vector3(0.2, 3.13, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hav3h"]
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybhkw"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w8jic"]
 size = Vector3(0.5, 0.5, 0.2)
@@ -104,7 +107,8 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="c" type="CollisionShape3D" parent="cup"]
-shape = SubResource("BoxShape3D_w8jic")
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+shape = SubResource("BoxShape3D_ybhkw")
 
 [node name="csg" type="CSGCylinder3D" parent="cup"]
 radius = 0.1
@@ -136,11 +140,11 @@ radius = 0.1
 height = 0.5
 
 [node name="spot" type="SpotLight3D" parent="flash/c"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.38419e-07, -0.0999999, 7.15256e-07)
 shadow_enabled = true
 spot_range = 15.0
-spot_angle = 15.0
-spot_angle_attenuation = 5.0
+spot_angle = 25.0
+spot_angle_attenuation = 10.0
 
 [node name="omni" type="OmniLight3D" parent="flash/c"]
 light_energy = 0.2
