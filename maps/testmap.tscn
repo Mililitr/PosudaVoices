@@ -12,6 +12,7 @@ sky_material = SubResource("ProceduralSkyMaterial_h4wva")
 
 [sub_resource type="Environment" id="Environment_y4a85"]
 background_mode = 2
+background_energy_multiplier = 0.1
 sky = SubResource("Sky_erw4p")
 tonemap_mode = 2
 glow_enabled = true
@@ -26,7 +27,7 @@ size = Vector3(0.2, 3.13, 8)
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w8jic"]
-size = Vector3(0.2, 0.2, 0.2)
+size = Vector3(0.5, 0.5, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
 size = Vector3(0.7, 0.9, 0.1)
@@ -66,10 +67,10 @@ operation = 2
 size = Vector3(49, 9, 49)
 
 [node name="omni" type="OmniLight3D" parent="csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, -2.5, 1)
+light_energy = 0.15
 shadow_enabled = true
 omni_range = 20.0
-omni_attenuation = 0.5
 
 [node name="csg2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, 0)
@@ -120,6 +121,32 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 inner_radius = 0.05
 outer_radius = 0.08
 
+[node name="flash" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2.8)
+collision_layer = 2
+collision_mask = 3
+
+[node name="c" type="CollisionShape3D" parent="flash"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.15, 0)
+shape = SubResource("BoxShape3D_w8jic")
+
+[node name="csg" type="CSGCylinder3D" parent="flash/c"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.15, 0)
+radius = 0.1
+height = 0.5
+
+[node name="spot" type="SpotLight3D" parent="flash/c"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shadow_enabled = true
+spot_range = 15.0
+spot_angle = 15.0
+spot_angle_attenuation = 5.0
+
+[node name="omni" type="OmniLight3D" parent="flash/c"]
+light_energy = 0.2
+shadow_enabled = true
+omni_range = 0.5
+
 [node name="list" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, -2, 1.6)
 collision_layer = 2
@@ -141,12 +168,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.00999999)
 shaded = true
 texture_filter = 0
 text = "list:
-1 bebra
-2 sigma
-3 1488
-4 medny byk
-5 ahaahahah
-6 six"
+1
+2
+3 Posuda Voices
+4
+5
+6"
 font_size = 15
 outline_size = 10
 horizontal_alignment = 0
