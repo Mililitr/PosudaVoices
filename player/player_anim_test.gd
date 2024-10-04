@@ -10,6 +10,8 @@ extends CharacterBody3D
 #vars
 var speed = self_speed
 var jump = 0
+var grab = false
+var item
 var input_dir
 var direction
 
@@ -21,6 +23,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var kinematic = $kinematic
 @onready var camera = $kinematic/camera
 @onready var ray = $kinematic/camera/ray
+@onready var ray_wall = $kinematic/camera/ray_wall
 @onready var pin = $kinematic/camera/pin
 @onready var neck = $neck
 @onready var tween = $tween
@@ -63,6 +66,14 @@ func _process(delta: float) -> void:
 	else:
 		kinematic.position.y = lerp(kinematic.position.y, 0.8, 0.2)
 	
+	#grab
+	if grab:
+		if ray_wall.is_colliding():
+			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*10
+		else:
+			item.linear_velocity = (pin.global_position - item.global_position)*10
+		item.look_at(kinematic.global_position)
+	
 	#fps
 	$canvas/fps.set_text("FPS %d" % Engine.get_frames_per_second())
 
@@ -80,12 +91,11 @@ func _input(event):
 	else:
 		aim.label_settings.font_color = Color(1, 1, 1, 0.5)
 	
+	#grab
 	if event is InputEventMouseButton:
-		#grab
 		if Input.is_action_just_pressed("lmb") and ray.is_colliding():
 			if ray.get_collider() is RigidBody3D:
-				pin.global_position = ray.get_collider().global_position
-				pin.node_b = ray.get_collider().get_path()
+				item = ray.get_collider()
+				grab = true
 		elif Input.is_action_just_released("lmb"):
-			if pin.node_b:
-				pin.node_b = ""
+			grab = false
