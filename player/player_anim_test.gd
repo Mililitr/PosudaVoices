@@ -1,14 +1,14 @@
 extends CharacterBody3D
 
 #stats
-@export var self_speed = 8
+@export var self_speed = 8.0
 @export var self_dexterity = 1
 @export var self_strength = 1
 @export var self_velocity = 100
 @export var self_jump = 5
 
 #vars
-var speed = self_speed
+@export var speed = self_speed
 var jump = 0
 var grab = false
 var item
@@ -27,21 +27,24 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var pin = $kinematic/camera/pin
 @onready var neck = $neck
 @onready var tween = $tween
+@onready var tree = $tree
 
 @onready var aim = $canvas/aim
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	#move
 	if is_on_floor():
 		if direction:
 			velocity.x = move_toward(velocity.x, speed*direction.x, abs(direction.x)*speed/10)
 			velocity.z = move_toward(velocity.z, speed*direction.z, abs(direction.z)*speed/10)
-			tween.move(true)
+			tree.set("parameters/move/blend_amount", lerp(tree.get("parameters/move/blend_amount"), 1.0, 0.05))
+			#tween.move(true)
 		else:
-			tween.move(false)
+			tree.set("parameters/move/blend_amount", lerp(tree.get("parameters/move/blend_amount"), 0.0, 0.05))
+			#tween.move(false)
 		velocity.x = move_toward(velocity.x, 0, abs(velocity.x)/10)
 		velocity.z = move_toward(velocity.z, 0, abs(velocity.z)/10)
 	elif direction:
@@ -58,13 +61,17 @@ func _process(delta: float) -> void:
 	direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).rotated(Vector3.UP, kinematic.rotation.y)
 	
 	#neck_rotation
-	neck.rotation.y = lerp_angle(neck.rotation.y, kinematic.rotation.y, float(speed)/40)
+	neck.rotation.y = lerp_angle(neck.rotation.y, kinematic.rotation.y, float(speed)/50)
 	
 	#crouch
 	if Input.is_action_pressed("ctrl"):
-		kinematic.position.y = lerp(kinematic.position.y, 0.2, 0.1)
+		tree.set("parameters/crouch/add_amount", lerp(tree.get("parameters/crouch/add_amount"), 1.0, 0.05))
+		tree.set("parameters/move_scale/scale", lerp(tree.get("parameters/move_scale/scale"), 0.5, 0.05))
+		speed = self_speed/2
 	else:
-		kinematic.position.y = lerp(kinematic.position.y, 0.8, 0.1)
+		tree.set("parameters/crouch/add_amount", lerp(tree.get("parameters/crouch/add_amount"), 0.0, 0.05))
+		tree.set("parameters/move_scale/scale", lerp(tree.get("parameters/move_scale/scale"), 1.0, 0.05))
+		speed = self_speed
 	
 	#grab
 	if grab:

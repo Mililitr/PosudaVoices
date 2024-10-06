@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4co4238k7tar"]
+
+[ext_resource type="Script" path="res://items/task_box.gd" id="1_6l3l3"]
+[ext_resource type="Shader" path="res://maps/kart.gdshader" id="1_ruf7s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3r6x1"]
+render_priority = 0
+shader = ExtResource("1_ruf7s")
+shader_parameter/grid_size = Vector2(0.1, 0.1)
+shader_parameter/line_color = Vector4(1, 1, 1, 1)
+shader_parameter/fill_color = Vector4(0, 0, 0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u4055"]
+size = Vector3(0.1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j5gkg"]
+size = Vector3(1, 1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0nea"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4q8j"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[node name="task_box" type="StaticBody3D"]
+script = ExtResource("1_6l3l3")
+
+[node name="csg" type="CSGBox3D" parent="."]
+material_override = SubResource("ShaderMaterial_3r6x1")
+
+[node name="csg2" type="CSGBox3D" parent="csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+operation = 2
+size = Vector3(0.9, 1, 0.9)
+
+[node name="c" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0, 0)
+shape = SubResource("BoxShape3D_u4055")
+
+[node name="c2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 0, 0)
+shape = SubResource("BoxShape3D_u4055")
+
+[node name="c3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45)
+shape = SubResource("BoxShape3D_j5gkg")
+
+[node name="c4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.45)
+shape = SubResource("BoxShape3D_j5gkg")
+
+[node name="c5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+shape = SubResource("BoxShape3D_d0nea")
+
+[node name="area" type="Area3D" parent="."]
+collision_mask = 2
+
+[node name="c" type="CollisionShape3D" parent="area"]
+shape = SubResource("BoxShape3D_e4q8j")
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

@@ -1,8 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=23 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
+[ext_resource type="Script" path="res://items/list.gd" id="3_4shrk"]
 [ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="3_cknn5"]
+[ext_resource type="PackedScene" uid="uid://b4co4238k7tar" path="res://items/task_box.tscn" id="5_omoq1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -13,19 +15,18 @@ sky_material = SubResource("ProceduralSkyMaterial_h4wva")
 
 [sub_resource type="Environment" id="Environment_y4a85"]
 background_mode = 2
-background_energy_multiplier = 0.1
 sky = SubResource("Sky_erw4p")
 tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7joiy"]
-albedo_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+albedo_color = Color(0.589096, 0.589096, 0.589096, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtxpl"]
-size = Vector3(0.7, 0.1, 8)
+size = Vector3(0.3, 0.1, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_owgim"]
-size = Vector3(0.2, 3.13, 8)
+size = Vector3(0.2, 3, 8)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hav3h"]
 albedo_color = Color(0, 0, 0, 1)
@@ -87,11 +88,11 @@ size = Vector3(0.5, 3, 8)
 [node name="static" type="StaticBody3D" parent="csg2"]
 
 [node name="c" type="CollisionShape3D" parent="csg2/static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 1.19209e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 1.19209e-07)
 shape = SubResource("BoxShape3D_vtxpl")
 
 [node name="c2" type="CollisionShape3D" parent="csg2/static"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 0, 0)
 shape = SubResource("BoxShape3D_owgim")
 
 [node name="csg3" type="CSGBox3D" parent="csg2"]
@@ -160,6 +161,7 @@ omni_range = 0.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, -2, 1.6)
 collision_layer = 2
 collision_mask = 3
+script = ExtResource("3_4shrk")
 
 [node name="c" type="CollisionShape3D" parent="list"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -221,7 +223,10 @@ size = Vector3(5, 5, 1)
 operation = 2
 radius = 0.72187
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="bu" type="Sprite3D" parent="."]
 transform = Transform3D(0.415, 0, 0, 0, 0.415, 0, 0, 0, 0.415, 0, -2.2, 23.1)
 shaded = true
 texture = ExtResource("3_cknn5")
+
+[node name="task_box_area" parent="." instance=ExtResource("5_omoq1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -4, 0)
