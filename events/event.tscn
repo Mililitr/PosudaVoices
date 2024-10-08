@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://g0v3s1nshbdb"]
+
+[ext_resource type="Script" path="res://events/event.gd" id="1_od77a"]
+
+[node name="event" type="Node3D"]
+script = ExtResource("1_od77a")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

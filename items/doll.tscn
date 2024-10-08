@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw52w252jellw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68y0m"]
+size = Vector3(0.6, 2, 0.6)
+
+[node name="doll" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+
+[node name="c" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_68y0m")
+
+[node name="csg" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="csg" type="CSGSphere3D" parent="csg"]
+operation = 1
+radius = 0.35
+
+[node name="csg2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+size = Vector3(0.5, 1, 0.5)
+
+[node name="csg" type="CSGSphere3D" parent="csg2"]
+operation = 1
+
+[node name="csg3" type="CSGBox3D" parent="."]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 0.2, -0.65, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg3"]
+operation = 1
+radius = 0.35
+
+[node name="csg4" type="CSGBox3D" parent="."]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, -0.2, -0.65, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg4"]
+operation = 1
+radius = 0.35
+
+[node name="csg5" type="CSGBox3D" parent="."]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 0.4, 0.25, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg5"]
+operation = 1
+radius = 0.35
+
+[node name="csg6" type="CSGBox3D" parent="."]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -0.4, 0.25, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg6"]
+operation = 1
+radius = 0.35

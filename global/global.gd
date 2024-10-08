@@ -1,5 +1,8 @@
 extends Node
 
+var player: Node
+var lights: Node
+
 signal update_list_signal
 
 var list = {

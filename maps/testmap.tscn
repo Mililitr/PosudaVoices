@@ -1,10 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=25 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
 [ext_resource type="Script" path="res://items/list.gd" id="3_4shrk"]
 [ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="3_cknn5"]
 [ext_resource type="PackedScene" uid="uid://b4co4238k7tar" path="res://items/task_box.tscn" id="5_omoq1"]
+[ext_resource type="PackedScene" uid="uid://g0v3s1nshbdb" path="res://events/event.tscn" id="6_ert7p"]
+[ext_resource type="PackedScene" uid="uid://c0ymsfhovest6" path="res://items/gun.tscn" id="7_e6k4f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +17,7 @@ sky_material = SubResource("ProceduralSkyMaterial_h4wva")
 
 [sub_resource type="Environment" id="Environment_y4a85"]
 background_mode = 2
+background_energy_multiplier = 0.3
 sky = SubResource("Sky_erw4p")
 tonemap_mode = 2
 glow_enabled = true
@@ -75,12 +78,6 @@ operation = 2
 size = Vector3(49, 9, 49)
 material = SubResource("StandardMaterial3D_7joiy")
 
-[node name="omni" type="OmniLight3D" parent="csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, -2.5, 1)
-light_energy = 0.15
-shadow_enabled = true
-omni_range = 20.0
-
 [node name="csg2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -3, 0)
 size = Vector3(0.5, 3, 8)
@@ -104,7 +101,7 @@ size = Vector3(0.4, 2.9, 7.9)
 size = Vector3(0.4, 0.1, 7.9)
 material = SubResource("StandardMaterial3D_hav3h")
 
-[node name="player_anim_test" parent="." instance=ExtResource("1_pmvfo")]
+[node name="player" parent="." instance=ExtResource("1_pmvfo")]
 collision_layer = 4
 
 [node name="cup" type="RigidBody3D" parent="."]
@@ -135,6 +132,7 @@ outer_radius = 0.08
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2.8)
 collision_layer = 2
 collision_mask = 3
+center_of_mass_mode = 1
 
 [node name="c" type="CollisionShape3D" parent="flash"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.15, 0)
@@ -230,3 +228,15 @@ texture = ExtResource("3_cknn5")
 
 [node name="task_box_area" parent="." instance=ExtResource("5_omoq1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -4, 0)
+
+[node name="event" parent="." instance=ExtResource("6_ert7p")]
+
+[node name="lights" type="Node3D" parent="."]
+
+[node name="omni" type="OmniLight3D" parent="lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7, -0.6, 1)
+shadow_enabled = true
+omni_range = 40.0
+
+[node name="gun" parent="." instance=ExtResource("7_e6k4f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2.2, -0.1)

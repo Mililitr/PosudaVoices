@@ -244,7 +244,7 @@ _data = {
 "move": SubResource("Animation_h0msd")
 }
 
-[node name="player_anim_test" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D"]
 script = ExtResource("1_epxok")
 
 [node name="c" type="CollisionShape3D" parent="."]
