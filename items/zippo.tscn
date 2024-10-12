@@ -1,0 +1,114 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxw70l1u8jn46"]
+
+[ext_resource type="Script" path="res://items/zippo.gd" id="1_wc8wx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wrag3"]
+size = Vector3(0.1, 0.2, 0.16)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uy73d"]
+albedo_color = Color(0.548962, 0.548963, 0.548962, 1)
+metallic = 1.0
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xfb5"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 2
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_a36tl"]
+lightmap_size_hint = Vector2i(2, 2)
+material = SubResource("StandardMaterial3D_4xfb5")
+size = Vector2(0.04, 0.08)
+
+[sub_resource type="Curve" id="Curve_ktp3x"]
+min_value = 0.5
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.944162, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ejks4"]
+offsets = PackedFloat32Array(0.5, 0.6, 0.9)
+colors = PackedColorArray(1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="Animation" id="Animation_3lw8i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("c/pin:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1t5sq"]
+resource_name = "open"
+length = 0.2
+step = 0.1
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("c/pin:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 2,
+"values": [Vector3(0, 0, 0), Vector3(2.0944, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44vxn"]
+_data = {
+"RESET": SubResource("Animation_3lw8i"),
+"open": SubResource("Animation_1t5sq")
+}
+
+[node name="zippo" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_wc8wx")
+
+[node name="c" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.4, 0)
+shape = SubResource("BoxShape3D_wrag3")
+
+[node name="csg" type="CSGBox3D" parent="c"]
+size = Vector3(0.1, 0.2, 0.16)
+material = SubResource("StandardMaterial3D_uy73d")
+
+[node name="part" type="CPUParticles3D" parent="c"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+visible = false
+lifetime = 5.0
+speed_scale = 20.0
+lifetime_randomness = 1.0
+mesh = SubResource("QuadMesh_a36tl")
+gravity = Vector3(0, 0.01, 0)
+scale_amount_curve = SubResource("Curve_ktp3x")
+color_ramp = SubResource("Gradient_ejks4")
+
+[node name="omni" type="OmniLight3D" parent="c/part"]
+light_color = Color(1, 1, 0, 1)
+light_energy = 0.2
+shadow_enabled = true
+
+[node name="pin" type="Node3D" parent="c"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.08)
+
+[node name="csg2" type="CSGBox3D" parent="c/pin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04, -0.08)
+size = Vector3(0.1, 0.08, 0.16)
+material = SubResource("StandardMaterial3D_uy73d")
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_44vxn")
+}

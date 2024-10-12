@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var self_jump = 5
 
 #vars
-@export var speed = self_speed
+var speed = self_speed
 var jump = 0
 var grab = false
 var item
@@ -80,7 +80,7 @@ func _physics_process(delta: float) -> void:
 			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*20
 		else:
 			item.linear_velocity = (pin.global_position - item.global_position)*20
-			item.look_at(kinematic.global_position)
+			item.look_at(camera.global_position)
 	
 	#fps
 	$canvas/fps.set_text("FPS %d" % Engine.get_frames_per_second())
@@ -99,11 +99,24 @@ func _input(event):
 	else:
 		aim.label_settings.font_color = Color(1, 1, 1, 0.5)
 	
-	#grab
 	if event is InputEventMouseButton:
+		#grab
 		if Input.is_action_just_pressed("lmb") and ray.is_colliding():
 			if ray.get_collider() is RigidBody3D:
 				item = ray.get_collider()
+				item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM)
 				grab = true
+				if item.is_in_group("aim"):
+					aim.hide()
+		#drop
 		elif Input.is_action_just_released("lmb"):
+			if item: item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_AUTO)
 			grab = false
+			if !aim.visible:
+				aim.show()
+	
+	if event is InputEventKey:
+		#item_function
+		if Input.is_action_just_pressed("x") and grab and item:
+			if item.has_method("function"):
+				item.function()

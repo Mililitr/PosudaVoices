@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw52w252jellw"]
+[gd_scene load_steps=4 format=3 uid="uid://bw52w252jellw"]
+
+[ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="1_xcprj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_68y0m"]
 size = Vector3(0.6, 2, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7in6i"]
+albedo_texture = ExtResource("1_xcprj")
+uv1_offset = Vector3(0, -0.1, 0)
+billboard_mode = 2
 
 [node name="doll" type="RigidBody3D"]
 collision_layer = 2
@@ -12,6 +19,7 @@ shape = SubResource("BoxShape3D_68y0m")
 
 [node name="csg" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+material_override = SubResource("StandardMaterial3D_7in6i")
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="csg" type="CSGSphere3D" parent="csg"]

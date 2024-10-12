@@ -1,12 +1,14 @@
-[gd_scene load_steps=25 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=24 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
-[ext_resource type="Script" path="res://items/list.gd" id="3_4shrk"]
 [ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="3_cknn5"]
+[ext_resource type="PackedScene" uid="uid://c0os5s2ea3qid" path="res://items/flash.tscn" id="3_id54m"]
+[ext_resource type="PackedScene" uid="uid://bl4b5vpgljjtg" path="res://items/list.tscn" id="4_i80dw"]
 [ext_resource type="PackedScene" uid="uid://b4co4238k7tar" path="res://items/task_box.tscn" id="5_omoq1"]
 [ext_resource type="PackedScene" uid="uid://g0v3s1nshbdb" path="res://events/event.tscn" id="6_ert7p"]
 [ext_resource type="PackedScene" uid="uid://c0ymsfhovest6" path="res://items/gun.tscn" id="7_e6k4f"]
+[ext_resource type="PackedScene" uid="uid://dxw70l1u8jn46" path="res://items/zippo.tscn" id="9_jtrok"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,7 +19,7 @@ sky_material = SubResource("ProceduralSkyMaterial_h4wva")
 
 [sub_resource type="Environment" id="Environment_y4a85"]
 background_mode = 2
-background_energy_multiplier = 0.3
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_erw4p")
 tonemap_mode = 2
 glow_enabled = true
@@ -37,17 +39,8 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybhkw"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w8jic"]
-size = Vector3(0.5, 0.5, 0.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_la7th"]
-size = Vector3(0.7, 0.9, 0.1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a135q"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_dfg5l"]
-material = SubResource("StandardMaterial3D_a135q")
-size = Vector2(0.7, 0.9)
+[sub_resource type="BoxShape3D" id="BoxShape3D_d46lf"]
+size = Vector3(0.3, 0.1, 0.3)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ioryn"]
 plane = Plane(0, 0, 1, 0)
@@ -104,7 +97,7 @@ material = SubResource("StandardMaterial3D_hav3h")
 [node name="player" parent="." instance=ExtResource("1_pmvfo")]
 collision_layer = 4
 
-[node name="cup" type="RigidBody3D" parent="."]
+[node name="cup" type="RigidBody3D" parent="." groups=["cups"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2)
 collision_layer = 2
 collision_mask = 3
@@ -128,64 +121,26 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 inner_radius = 0.05
 outer_radius = 0.08
 
-[node name="flash" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2.8)
+[node name="plate" type="RigidBody3D" parent="." groups=["plates"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2, 2.4)
 collision_layer = 2
 collision_mask = 3
-center_of_mass_mode = 1
 
-[node name="c" type="CollisionShape3D" parent="flash"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.15, 0)
-shape = SubResource("BoxShape3D_w8jic")
+[node name="c" type="CollisionShape3D" parent="plate"]
+shape = SubResource("BoxShape3D_d46lf")
 
-[node name="csg" type="CSGCylinder3D" parent="flash/c"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.15, 0)
-radius = 0.1
-height = 0.5
+[node name="csg" type="CSGSphere3D" parent="plate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+radius = 0.2
 
-[node name="spot" type="SpotLight3D" parent="flash/c"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.38419e-07, -0.0999999, 7.15256e-07)
-shadow_enabled = true
-spot_range = 15.0
-spot_angle = 25.0
-spot_angle_attenuation = 10.0
+[node name="csg2" type="CSGSphere3D" parent="plate/csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14, 0)
+operation = 2
+radius = 0.3
 
-[node name="omni" type="OmniLight3D" parent="flash/c"]
-light_energy = 0.2
-shadow_enabled = true
-omni_range = 0.5
+[node name="flash" parent="." instance=ExtResource("3_id54m")]
 
-[node name="list" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, -2, 1.6)
-collision_layer = 2
-collision_mask = 3
-script = ExtResource("3_4shrk")
-
-[node name="c" type="CollisionShape3D" parent="list"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-shape = SubResource("BoxShape3D_la7th")
-
-[node name="csg" type="CSGMesh3D" parent="list/c"]
-mesh = SubResource("QuadMesh_dfg5l")
-
-[node name="csg2" type="CSGMesh3D" parent="list/c"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
-mesh = SubResource("QuadMesh_dfg5l")
-
-[node name="label" type="Label3D" parent="list/c"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0.00999999)
-shaded = true
-texture_filter = 0
-text = "list:
-1
-2
-3 Posuda Voices
-4
-5
-6"
-font_size = 15
-outline_size = 10
-horizontal_alignment = 0
+[node name="list" parent="." instance=ExtResource("4_i80dw")]
 
 [node name="static" type="StaticBody3D" parent="."]
 
@@ -240,3 +195,6 @@ omni_range = 40.0
 
 [node name="gun" parent="." instance=ExtResource("7_e6k4f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2.2, -0.1)
+
+[node name="zippo" parent="." instance=ExtResource("9_jtrok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.86, -1.86, 3.06)
