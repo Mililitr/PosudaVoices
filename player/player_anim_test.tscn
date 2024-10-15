@@ -433,7 +433,7 @@ text = "any quest?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="button" type="Button" parent="canvas/ask_panel/vbox"]
+[node name="1" type="Button" parent="canvas/ask_panel/vbox"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "yes"

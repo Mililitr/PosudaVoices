@@ -31,6 +31,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var aim = $canvas/aim
 @onready var ask_panel = $canvas/ask_panel
+@onready var ask_button = $"canvas/ask_panel/vbox/1"
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -140,6 +141,7 @@ func _input(event):
 func ask():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ask_panel.show()
+	ask_button
 
 func sleep():
 	tree.set("parameters/sleep/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
