@@ -7,8 +7,9 @@ var list = {
 
 var days = 6
 var day = 1
-var completed = false
+var day_completed = false
 
+var map: Node
 var player: Node
 var lights: Node
 
@@ -19,5 +20,12 @@ func update_list_item():
 	for task in list:
 		if !list[task]:
 			return
-	completed = true
-	print(completed)
+	day_completed = true
+
+func sleep():
+	player.sleep()
+
+func next_day():
+	map.restart()
+	day += 1
+	day_completed = false

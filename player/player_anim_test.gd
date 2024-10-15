@@ -30,15 +30,16 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var tree = $tree
 
 @onready var aim = $canvas/aim
+@onready var ask_panel = $canvas/ask_panel
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	Global.player = get_node(".")
+	Global.player = self
 
 func _physics_process(delta: float) -> void:
 	#move
 	if is_on_floor():
-		if direction:
+		if direction and Input.mouse_mode == 2:
 			velocity.x = move_toward(velocity.x, speed*direction.x, abs(direction.x)*speed/10)
 			velocity.z = move_toward(velocity.z, speed*direction.z, abs(direction.z)*speed/10)
 			tree.set("parameters/move/blend_amount", lerp(tree.get("parameters/move/blend_amount"), 1.0, 0.05))
@@ -76,9 +77,14 @@ func _physics_process(delta: float) -> void:
 	
 	#grab
 	if grab:
+		RigidBody3D.new()
 		if ray_wall.is_colliding():
-			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*20
+			if item.center_of_mass_mode != 0:
+				item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_AUTO)
+			item.linear_velocity = (ray_wall.get_collision_point() - item.global_position)*5
 		else:
+			if item.center_of_mass_mode != 1:
+				item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM)
 			item.linear_velocity = (pin.global_position - item.global_position)*20
 			item.look_at(camera.global_position)
 	
@@ -88,28 +94,38 @@ func _physics_process(delta: float) -> void:
 func _input(event):
 	#mouse
 	if event is InputEventMouseMotion:
-		kinematic.rotate_y(-event.relative.x * .001 * sensitive)
-		camera.rotate_x(-event.relative.y * .001 * sensitive)
-		camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+		if Input.mouse_mode == 2:
+			kinematic.rotate_y(-event.relative.x * .001 * sensitive)
+			camera.rotate_x(-event.relative.y * .001 * sensitive)
+			camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
+		else:
+			kinematic.rotate_y(-event.relative.x * .001 * sensitive/4)
+			camera.rotate_x(-event.relative.y * .001 * sensitive/4)
+			camera.rotation.x = clamp(camera.rotation.x, -PI/2, PI/2)
 	
 	#aim_color
 	if ray.is_colliding():
-		if ray.get_collider() is RigidBody3D:
+		if ray.get_collider():
 			aim.label_settings.font_color = Color(0, 1, 0, 0.5)
 	else:
 		aim.label_settings.font_color = Color(1, 1, 1, 0.5)
 	
 	if event is InputEventMouseButton:
-		#grab
 		if Input.is_action_just_pressed("lmb") and ray.is_colliding():
+			#grab
 			if ray.get_collider() is RigidBody3D:
 				item = ray.get_collider()
-				item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM)
+				#item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_CUSTOM)
 				grab = true
 				if item.is_in_group("aim"):
 					aim.hide()
+			#function
+			if ray.get_collider() is Area3D:
+				item = ray.get_collider()
+				if item.has_method("function"):
+					item.function()
 		#drop
-		elif Input.is_action_just_released("lmb"):
+		elif Input.is_action_just_released("lmb") and item is RigidBody3D:
 			if item: item.set_center_of_mass_mode(RigidBody3D.CENTER_OF_MASS_MODE_AUTO)
 			grab = false
 			if !aim.visible:
@@ -120,3 +136,13 @@ func _input(event):
 		if Input.is_action_just_pressed("x") and grab and item:
 			if item.has_method("function"):
 				item.function()
+
+func ask():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	ask_panel.show()
+
+func sleep():
+	tree.set("parameters/sleep/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+func next_day():
+	Global.next_day()

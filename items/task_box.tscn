@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b4co4238k7tar"]
 
 [ext_resource type="Script" path="res://items/task_box.gd" id="1_6l3l3"]
-[ext_resource type="Shader" path="res://maps/kart.gdshader" id="1_ruf7s"]
+[ext_resource type="Shader" path="res://items/kart.gdshader" id="1_ruf7s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3r6x1"]
 render_priority = 0

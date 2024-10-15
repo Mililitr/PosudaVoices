@@ -8,5 +8,5 @@ func _on_timer_timeout() -> void:
 	get_parent().add_child(doll)
 	
 	#light_event
-	for light in Global.lights.get_children():
-		light.hide()
+	#for light in Global.lights.get_children():
+		#light.hide()

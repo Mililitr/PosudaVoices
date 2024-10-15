@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsx6n4o8b8xbl"]
+
+[ext_resource type="Script" path="res://items/human.gd" id="1_dg6j4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bj86n"]
+size = Vector3(4, 2, 4)
+
+[node name="human" type="Node3D"]
+script = ExtResource("1_dg6j4")
+
+[node name="csg" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="csg" type="CSGSphere3D" parent="csg"]
+operation = 1
+radius = 0.35
+
+[node name="csg2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+size = Vector3(0.5, 1, 0.5)
+
+[node name="csg" type="CSGSphere3D" parent="csg2"]
+operation = 1
+
+[node name="csg3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 4.47035e-08, 0, -4.47035e-08, 1, 0, 0, 0, 1, 0.1, 0.35, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg3"]
+operation = 1
+radius = 0.35
+
+[node name="csg4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, -4.47035e-08, 0, 4.47035e-08, 1, 0, 0, 0, 1, -0.1, 0.35, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg4"]
+operation = 1
+radius = 0.35
+
+[node name="csg5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, -2.08616e-07, 0, 2.08616e-07, 1, 0, 0, 0, 1, 0.4, 1.25, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg5"]
+operation = 1
+radius = 0.35
+
+[node name="csg6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 2.08616e-07, 0, -2.08616e-07, 1, 0, 0, 0, 1, -0.4, 1.25, 0)
+size = Vector3(0.3, 0.8, 0.3)
+
+[node name="csg" type="CSGSphere3D" parent="csg6"]
+operation = 1
+radius = 0.35
+
+[node name="area" type="Area3D" parent="."]
+
+[node name="c" type="CollisionShape3D" parent="area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+shape = SubResource("BoxShape3D_bj86n")
+
+[connection signal="body_entered" from="area" to="." method="_on_area_body_entered"]

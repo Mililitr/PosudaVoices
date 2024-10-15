@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cpk40rsdmkfrd"]
+[gd_scene load_steps=24 format=3 uid="uid://cpk40rsdmkfrd"]
 
 [ext_resource type="Script" path="res://player/player_anim_test.gd" id="1_epxok"]
 [ext_resource type="Script" path="res://player/tween.gd" id="2_k0500"]
@@ -18,11 +18,17 @@ size = Vector3(0.3, 0.6, 0.4)
 [sub_resource type="LabelSettings" id="LabelSettings_6mjjx"]
 font_size = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qglpr"]
+bg_color = Color(0, 0, 0, 0)
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gaviw"]
 animation = &"move"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2qxvf"]
 animation = &"crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_18els"]
+animation = &"sleep"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ix2am"]
 animation = &"idle"
@@ -33,22 +39,28 @@ animation = &"idle"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_llsna"]
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_1brlh"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cuxiw"]
-graph_offset = Vector2(-383.766, 71.4359)
+graph_offset = Vector2(-225.853, 90.4083)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_ix2am")
 nodes/Animation/position = Vector2(-40, 160)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_gaviw")
 "nodes/Animation 2/position" = Vector2(-200, 300)
 "nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_2qxvf")
 "nodes/Animation 3/position" = Vector2(120, 380)
+"nodes/Animation 4/node" = SubResource("AnimationNodeAnimation_18els")
+"nodes/Animation 4/position" = Vector2(280, 380)
 nodes/crouch/node = SubResource("AnimationNodeAdd2_iscxs")
 nodes/crouch/position = Vector2(280, 160)
 nodes/move/node = SubResource("AnimationNodeBlend2_k1iq0")
 nodes/move/position = Vector2(120, 160)
 nodes/move_scale/node = SubResource("AnimationNodeTimeScale_llsna")
 nodes/move_scale/position = Vector2(-40, 300)
-nodes/output/position = Vector2(440, 160)
-node_connections = [&"crouch", 0, &"move", &"crouch", 1, &"Animation 3", &"move", 0, &"Animation", &"move", 1, &"move_scale", &"move_scale", 0, &"Animation 2", &"output", 0, &"crouch"]
+nodes/output/position = Vector2(600, 160)
+nodes/sleep/node = SubResource("AnimationNodeOneShot_1brlh")
+nodes/sleep/position = Vector2(440, 160)
+node_connections = [&"crouch", 0, &"move", &"crouch", 1, &"Animation 3", &"move", 0, &"Animation", &"move", 1, &"move_scale", &"move_scale", 0, &"Animation 2", &"output", 0, &"sleep", &"sleep", 0, &"crouch", &"sleep", 1, &"Animation 4"]
 
 [sub_resource type="Animation" id="Animation_tqvsy"]
 length = 0.001
@@ -111,6 +123,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../canvas/panel:theme_override_styles/panel:bg_color")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_633bs"]
@@ -236,15 +260,46 @@ tracks/2/keys = {
 "values": [Vector3(0, 0.8, 0), Vector3(0, 0.7, 0), Vector3(0, 0.8, 0), Vector3(0, 0.7, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ks2a2"]
+resource_name = "sleep"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../canvas/panel:theme_override_styles/panel:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"next_day"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8khmg"]
 _data = {
 "RESET": SubResource("Animation_tqvsy"),
 "crouch": SubResource("Animation_633bs"),
 "idle": SubResource("Animation_td5um"),
-"move": SubResource("Animation_h0msd")
+"move": SubResource("Animation_h0msd"),
+"sleep": SubResource("Animation_ks2a2")
 }
 
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" groups=["players"]]
 script = ExtResource("1_epxok")
 
 [node name="c" type="CollisionShape3D" parent="."]
@@ -255,6 +310,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 
 [node name="camera" type="Camera3D" parent="kinematic"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+current = true
 
 [node name="head" type="MeshInstance3D" parent="kinematic/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
@@ -262,11 +318,12 @@ mesh = SubResource("BoxMesh_1kcdo")
 skeleton = NodePath("../../..")
 
 [node name="ray" type="RayCast3D" parent="kinematic/camera"]
-target_position = Vector3(0, 0, -1.4)
+target_position = Vector3(0, 0, -1.8)
 collision_mask = 2
+collide_with_areas = true
 
 [node name="ray_wall" type="RayCast3D" parent="kinematic/camera"]
-target_position = Vector3(0, 0, -1.4)
+target_position = Vector3(0, 0, -1.8)
 
 [node name="pin" type="Node3D" parent="kinematic/camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
@@ -343,6 +400,44 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="panel" type="Panel" parent="canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qglpr")
+
+[node name="ask_panel" type="Panel" parent="canvas"]
+visible = false
+custom_minimum_size = Vector2(0, 200)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="vbox" type="VBoxContainer" parent="canvas/ask_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label" type="Label" parent="canvas/ask_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "any quest?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="button" type="Button" parent="canvas/ask_panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "yes"
+
 [node name="tree" type="AnimationTree" parent="."]
 root_node = NodePath(".")
 tree_root = SubResource("AnimationNodeBlendTree_cuxiw")
@@ -350,6 +445,9 @@ anim_player = NodePath("anim")
 parameters/crouch/add_amount = 0.0
 parameters/move/blend_amount = 0.0
 parameters/move_scale/scale = 1.0
+parameters/sleep/active = false
+parameters/sleep/internal_active = false
+parameters/sleep/request = 0
 
 [node name="anim" type="AnimationPlayer" parent="tree"]
 libraries = {

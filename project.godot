@@ -29,10 +29,11 @@ enabled=PackedStringArray()
 
 [global_group]
 
-aim=""
 cups=""
 towels=""
 plates=""
+players=""
+aims=""
 
 [input]
 

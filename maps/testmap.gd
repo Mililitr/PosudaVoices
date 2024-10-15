@@ -1,7 +1,11 @@
 extends Node3D
 
+@export var player: CharacterBody3D
+@export var spawn: Node3D
+
 func _ready() -> void:
+	Global.map = self
 	Global.lights = $lights
 
-func _physics_process(delta: float) -> void:
-	$prikol/p.global_position = $player/kinematic/camera/pin.global_position
+func restart():
+	player.global_position = spawn.global_position
