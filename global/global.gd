@@ -21,6 +21,7 @@ func update_list_item():
 		if !list[task]:
 			return
 	day_completed = true
+	
 
 func sleep():
 	player.sleep()
