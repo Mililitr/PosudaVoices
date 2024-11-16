@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1bunwxyltex1"]
+
+[ext_resource type="PackedScene" uid="uid://ccimyuxg4lxik" path="res://days/day.tscn" id="1_mlytp"]
+[ext_resource type="Script" path="res://days/day_2.gd" id="2_ronlm"]
+[ext_resource type="PackedScene" uid="uid://cg1jgyo0pqwk" path="res://maps/testmap.tscn" id="3_x5dfn"]
+[ext_resource type="PackedScene" uid="uid://bw52w252jellw" path="res://items/doll.tscn" id="4_imnje"]
+
+[node name="day2" instance=ExtResource("1_mlytp")]
+script = ExtResource("2_ronlm")
+
+[node name="testmap" parent="." index="1" instance=ExtResource("3_x5dfn")]
+
+[node name="doll" parent="." index="2" instance=ExtResource("4_imnje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4449, -0.748097, 0)

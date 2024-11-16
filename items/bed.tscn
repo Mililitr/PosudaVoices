@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcyd3vuhrwlfg"]
+[gd_scene load_steps=9 format=3 uid="uid://dcyd3vuhrwlfg"]
 
 [ext_resource type="Script" path="res://items/bed.gd" id="1_r734l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7o4r"]
 size = Vector3(2.2, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_86e4v"]
+size = Vector3(2, 0.3, 0.9)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6y1y1"]
+radius = 0.2
+height = 0.8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_71i1w"]
 size = Vector3(2.1, 0.3, 0.9)
@@ -77,13 +84,13 @@ script = ExtResource("1_r734l")
 [node name="c" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_w7o4r")
 
-[node name="csg" type="CSGBox3D" parent="."]
-size = Vector3(2.2, 0.4, 1)
+[node name="m" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_86e4v")
 
-[node name="csg" type="CSGCylinder3D" parent="csg"]
-operation = 1
-radius = 1.1
-sides = 20
+[node name="m2" type="MeshInstance3D" parent="m"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.7, 0.1, 0)
+mesh = SubResource("CapsuleMesh_6y1y1")
+skeleton = NodePath("../..")
 
 [node name="static" type="StaticBody3D" parent="."]
 collision_layer = 2

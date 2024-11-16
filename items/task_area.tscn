@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7iyvfed7ugya"]
+
+[ext_resource type="Script" path="res://items/task_area.gd" id="1_nv8x2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0cow"]
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_cfebp"]
+orientation = 1
+
+[node name="task_area" type="Area3D"]
+script = ExtResource("1_nv8x2")
+
+[node name="c" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_v0cow")
+
+[node name="m" type="MeshInstance3D" parent="c"]
+mesh = SubResource("QuadMesh_cfebp")
+skeleton = NodePath("../..")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

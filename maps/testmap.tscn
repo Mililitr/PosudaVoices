@@ -1,15 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=24 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
 [ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
 [ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="3_cknn5"]
 [ext_resource type="PackedScene" uid="uid://c0os5s2ea3qid" path="res://items/flash.tscn" id="3_id54m"]
-[ext_resource type="PackedScene" uid="uid://bl4b5vpgljjtg" path="res://items/list.tscn" id="4_i80dw"]
-[ext_resource type="PackedScene" uid="uid://b4co4238k7tar" path="res://items/task_box.tscn" id="5_omoq1"]
 [ext_resource type="PackedScene" uid="uid://g0v3s1nshbdb" path="res://events/event.tscn" id="6_ert7p"]
 [ext_resource type="PackedScene" uid="uid://c0ymsfhovest6" path="res://items/gun.tscn" id="7_e6k4f"]
 [ext_resource type="PackedScene" uid="uid://dxw70l1u8jn46" path="res://items/zippo.tscn" id="9_jtrok"]
-[ext_resource type="PackedScene" uid="uid://dcyd3vuhrwlfg" path="res://items/bed.tscn" id="10_j2an4"]
 [ext_resource type="PackedScene" uid="uid://dsx6n4o8b8xbl" path="res://items/human.tscn" id="11_bq8aj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_h4wva"]
@@ -145,8 +142,6 @@ radius = 0.3
 
 [node name="flash" parent="." instance=ExtResource("3_id54m")]
 
-[node name="list" parent="." instance=ExtResource("4_i80dw")]
-
 [node name="static" type="StaticBody3D" parent="."]
 
 [node name="c" type="CollisionShape3D" parent="static"]
@@ -178,9 +173,6 @@ transform = Transform3D(0.415, 0, 0, 0, 0.415, 0, 0, 0, 0.415, 0, -2.2, 23.1)
 shaded = true
 texture = ExtResource("3_cknn5")
 
-[node name="task_box_area" parent="." instance=ExtResource("5_omoq1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -4, 0)
-
 [node name="event" parent="." instance=ExtResource("6_ert7p")]
 
 [node name="lights" type="Node3D" parent="."]
@@ -195,9 +187,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.9, -2.2, -0.1)
 
 [node name="zippo" parent="." instance=ExtResource("9_jtrok")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.86, -1.86, 3.06)
-
-[node name="bed" parent="." instance=ExtResource("10_j2an4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85, -4.3, -2.16)
 
 [node name="spawn" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -2, 0)

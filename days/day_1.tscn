@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmkbl2qjqp6dd"]
+[gd_scene load_steps=7 format=3 uid="uid://cmkbl2qjqp6dd"]
 
 [ext_resource type="PackedScene" uid="uid://ccimyuxg4lxik" path="res://days/day.tscn" id="1_djgw5"]
 [ext_resource type="Script" path="res://days/day_1.gd" id="2_8w607"]
+[ext_resource type="PackedScene" uid="uid://cg1jgyo0pqwk" path="res://maps/testmap.tscn" id="3_yabfd"]
+[ext_resource type="PackedScene" uid="uid://bl4b5vpgljjtg" path="res://items/list.tscn" id="4_byalg"]
+[ext_resource type="PackedScene" uid="uid://dcyd3vuhrwlfg" path="res://items/bed.tscn" id="4_x5k7u"]
+[ext_resource type="PackedScene" uid="uid://b7iyvfed7ugya" path="res://items/task_area.tscn" id="6_8dgjw"]
 
-[node name="day1" instance=ExtResource("1_djgw5")]
+[node name="day1" node_paths=PackedStringArray("list") instance=ExtResource("1_djgw5")]
 script = ExtResource("2_8w607")
+list = NodePath("testmap/list")
+
+[node name="testmap" parent="." index="0" instance=ExtResource("3_yabfd")]
+
+[node name="bed" parent="testmap" index="16" node_paths=PackedStringArray("day") instance=ExtResource("4_x5k7u")]
+day = NodePath("../..")
+
+[node name="list" parent="testmap" index="17" node_paths=PackedStringArray("day") instance=ExtResource("4_byalg")]
+day = NodePath("../..")
+
+[node name="task_area" parent="testmap" index="18" node_paths=PackedStringArray("list") instance=ExtResource("6_8dgjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02321, -4.38427, 0)
+list = NodePath("../list")
+item_group = "cups"
