@@ -1,6 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccimyuxg4lxik"]
+[gd_scene load_steps=16 format=3 uid="uid://ccimyuxg4lxik"]
 
 [ext_resource type="Script" path="res://days/day.gd" id="1_ku4ut"]
+[ext_resource type="PackedScene" uid="uid://cg1jgyo0pqwk" path="res://maps/testmap.tscn" id="2_0ivyi"]
+[ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="3_4tca4"]
+[ext_resource type="PackedScene" uid="uid://dcyd3vuhrwlfg" path="res://items/bed.tscn" id="4_14l7q"]
+[ext_resource type="PackedScene" uid="uid://bl4b5vpgljjtg" path="res://items/list.tscn" id="5_hmlb1"]
+[ext_resource type="PackedScene" uid="uid://b7iyvfed7ugya" path="res://items/task_area.tscn" id="6_41yms"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owx7i"]
 bg_color = Color(0, 0, 0, 0)
@@ -10,47 +15,6 @@ font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_oavof"]
 font_size = 20
-
-[sub_resource type="Animation" id="Animation_38hxc"]
-resource_name = "ready"
-length = 4.0
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("canvas/margin:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("canvas/panel:theme_override_styles/panel:bg_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(3, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("canvas/margin/label:label_settings:outline_size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 20]
-}
 
 [sub_resource type="Animation" id="Animation_illnp"]
 length = 0.001
@@ -91,14 +55,134 @@ tracks/2/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_38hxc"]
+resource_name = "ready"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("canvas/margin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("canvas/panel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("canvas/margin/label:label_settings:outline_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q7eob"]
 _data = {
 "RESET": SubResource("Animation_illnp"),
 "ready": SubResource("Animation_38hxc")
 }
 
-[node name="day" type="Node3D"]
+[sub_resource type="Animation" id="Animation_ljf37"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("testmap/player:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("testmap/player:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s25vi"]
+resource_name = "sleep"
+length = 5.0
+step = 0.5
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("testmap/player:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(0, -3.9, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("testmap/player:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Vector3(8.35187e-23, -4.37114e-08, -1.5708)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("testmap/player")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"sleep"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_83hex"]
+_data = {
+"RESET": SubResource("Animation_ljf37"),
+"sleep": SubResource("Animation_s25vi")
+}
+
+[node name="day" type="Node3D" node_paths=PackedStringArray("list", "anim")]
 script = ExtResource("1_ku4ut")
+list = NodePath("testmap/list")
+anim = NodePath("anim")
 
 [node name="canvas" type="CanvasLayer" parent="."]
 
@@ -143,3 +227,34 @@ libraries = {
 "": SubResource("AnimationLibrary_q7eob")
 }
 autoplay = "ready"
+
+[node name="testmap" parent="." instance=ExtResource("2_0ivyi")]
+
+[node name="player" parent="testmap" node_paths=PackedStringArray("day") instance=ExtResource("3_4tca4")]
+day = NodePath("../..")
+
+[node name="bed" parent="testmap" node_paths=PackedStringArray("day") instance=ExtResource("4_14l7q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.4, 4)
+day = NodePath("../..")
+
+[node name="list" parent="testmap" node_paths=PackedStringArray("day") instance=ExtResource("5_hmlb1")]
+day = NodePath("../..")
+
+[node name="task_area" parent="testmap" node_paths=PackedStringArray("list") instance=ExtResource("6_41yms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02321, -4.38427, 0)
+collision_layer = 2
+collision_mask = 2
+list = NodePath("../list")
+item_group = "cups"
+
+[node name="task_area2" parent="testmap" node_paths=PackedStringArray("list") instance=ExtResource("6_41yms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02321, -4.38427, 1.3)
+collision_layer = 2
+collision_mask = 2
+list = NodePath("../list")
+item_group = "plates"
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_83hex")
+}

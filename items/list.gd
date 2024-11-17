@@ -12,7 +12,7 @@ func complete_task(task):
 
 func update_tasks():
 	var completed = true
-	label.text = "list:\n"
+	label.text = "tasks:\n"
 	for task in tasks:
 		label.text += task + " - " + ("YES" if tasks[task] else "NO") + "\n"
 		if !tasks[task]: completed = false

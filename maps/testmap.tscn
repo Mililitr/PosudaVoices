@@ -56,9 +56,8 @@ plane = Plane(-1, 0, 0, 0)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tcgb8"]
 size = Vector3(50, 0.6, 50)
 
-[node name="testmap" type="Node3D" node_paths=PackedStringArray("player", "spawn")]
+[node name="testmap" type="Node3D" node_paths=PackedStringArray("spawn")]
 script = ExtResource("1_e0alo")
-player = NodePath("")
 spawn = NodePath("spawn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
