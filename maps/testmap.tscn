@@ -1,7 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://cg1jgyo0pqwk"]
+[gd_scene load_steps=23 format=3 uid="uid://cg1jgyo0pqwk"]
 
 [ext_resource type="Script" path="res://maps/testmap.gd" id="1_e0alo"]
-[ext_resource type="PackedScene" uid="uid://cpk40rsdmkfrd" path="res://player/player_anim_test.tscn" id="1_pmvfo"]
 [ext_resource type="Texture2D" uid="uid://bnbrhts5mo25" path="res://pick-one-to-protect-you-the-rest-will-try-to-kill-you-v0-c5jhs69t28sd1.webp" id="3_cknn5"]
 [ext_resource type="PackedScene" uid="uid://c0os5s2ea3qid" path="res://items/flash.tscn" id="3_id54m"]
 [ext_resource type="PackedScene" uid="uid://g0v3s1nshbdb" path="res://events/event.tscn" id="6_ert7p"]
@@ -59,7 +58,7 @@ size = Vector3(50, 0.6, 50)
 
 [node name="testmap" type="Node3D" node_paths=PackedStringArray("player", "spawn")]
 script = ExtResource("1_e0alo")
-player = NodePath("player")
+player = NodePath("")
 spawn = NodePath("spawn")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -193,5 +192,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, -2, 0)
 
 [node name="human" parent="." instance=ExtResource("11_bq8aj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1, -4.5, -6.1)
-
-[node name="player" parent="." instance=ExtResource("1_pmvfo")]

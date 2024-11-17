@@ -20,6 +20,8 @@ var sensitive = 0.8
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #nodes
+@export var day: _Day
+
 @onready var kinematic = $kinematic
 @onready var camera = $kinematic/camera
 @onready var ray = $kinematic/camera/ray
@@ -144,7 +146,9 @@ func ask():
 	ask_button
 
 func sleep():
+	self_speed = 0
+	gravity = 0
 	tree.set("parameters/sleep/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 func next_day():
-	Global.next_day()
+	day.next_day()

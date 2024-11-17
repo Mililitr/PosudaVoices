@@ -1,6 +1,145 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccimyuxg4lxik"]
+[gd_scene load_steps=8 format=3 uid="uid://ccimyuxg4lxik"]
 
 [ext_resource type="Script" path="res://days/day.gd" id="1_ku4ut"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owx7i"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8fr5u"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_oavof"]
+font_size = 20
+
+[sub_resource type="Animation" id="Animation_38hxc"]
+resource_name = "ready"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("canvas/margin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("canvas/panel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("canvas/margin/label:label_settings:outline_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 20]
+}
+
+[sub_resource type="Animation" id="Animation_illnp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("canvas/margin:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("canvas/panel:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("canvas/margin/label:label_settings:outline_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q7eob"]
+_data = {
+"RESET": SubResource("Animation_illnp"),
+"ready": SubResource("Animation_38hxc")
+}
+
 [node name="day" type="Node3D"]
 script = ExtResource("1_ku4ut")
+
+[node name="canvas" type="CanvasLayer" parent="."]
+
+[node name="panel" type="Panel" parent="canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_owx7i")
+
+[node name="margin" type="MarginContainer" parent="canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="label" type="Label" parent="canvas/margin"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "day"
+label_settings = SubResource("LabelSettings_8fr5u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label2" type="Label" parent="canvas/margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "in the"
+label_settings = SubResource("LabelSettings_oavof")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="anim" type="AnimationPlayer" parent="canvas"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_q7eob")
+}
+autoplay = "ready"

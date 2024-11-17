@@ -11,11 +11,12 @@ size = Vector3(0.7, 0.9, 0.1)
 material = SubResource("StandardMaterial3D_a135q")
 size = Vector2(0.7, 0.9)
 
-[node name="list" type="RigidBody3D"]
+[node name="list" type="RigidBody3D" node_paths=PackedStringArray("label")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, -2, 1.6)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_wpanl")
+label = NodePath("c/label")
 
 [node name="c" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

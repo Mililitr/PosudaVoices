@@ -1,8 +1,16 @@
 extends "res://days/day.gd"
 
+@export var anim: AnimationPlayer
+
 func _ready() -> void:
-	day = 1
 	list.tasks = {
-		"s1" = false,
-		"s2" = false,
+		"cups": false,
+		"plates": false,
 	}
+	list.update_tasks()
+
+func sleep():
+	anim.play("sleep")
+
+func next_day():
+	get_tree().change_scene_to_file(days[1])

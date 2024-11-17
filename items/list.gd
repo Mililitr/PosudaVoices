@@ -2,23 +2,20 @@ extends RigidBody3D
 class_name _Item_List
 
 @export var day: _Day
-
-@onready var label = $c/label
+@export var label: Label3D
 
 var tasks = {}
 
-func _ready() -> void:
-	update_list()
-
 func complete_task(task):
 	tasks[task] = true
-	update_list()
+	update_tasks()
 
-func update_list():
+func update_tasks():
 	var completed = true
+	label.text = "list:\n"
 	for task in tasks:
 		label.text += task + " - " + ("YES" if tasks[task] else "NO") + "\n"
-		if !task: completed = false
+		if !tasks[task]: completed = false
 	if completed: day.completed = true
 
 #func _ready() -> void:

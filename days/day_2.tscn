@@ -8,7 +8,7 @@
 [node name="day2" instance=ExtResource("1_mlytp")]
 script = ExtResource("2_ronlm")
 
-[node name="testmap" parent="." index="1" instance=ExtResource("3_x5dfn")]
+[node name="testmap" parent="." index="0" instance=ExtResource("3_x5dfn")]
 
-[node name="doll" parent="." index="2" instance=ExtResource("4_imnje")]
+[node name="doll" parent="." index="1" instance=ExtResource("4_imnje")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4449, -0.748097, 0)
